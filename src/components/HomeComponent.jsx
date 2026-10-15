@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import loading from "./../assets/images/loading.jpg";
 import ServiceDepartamentos from "../services/ServiceDepartamentos";
 import { NavLink } from "react-router-dom";
+import DeleteComponent from "./DeleteComponent";
 export default class HomeComponent extends Component {
   state = {
     dep: [],
     loaded: false,
-    modal: false,
+    selectedDepartment: null,
   };
   service = new ServiceDepartamentos();
   loadDepartmentDetails = () => {
@@ -24,7 +25,11 @@ export default class HomeComponent extends Component {
     this.service.deleteDepartament(id).then((result) => {
       //QUEREMOS RECARGAR LOS DATOS DEL DEPARTAMENTO
       this.loadDepartmentDetails();
+      return result;
     });
+  };
+  unloadModal = () => {
+    this.setState({ selectedDepartment: null });
   };
   render() {
     if (this.state.loaded === false) {
@@ -32,6 +37,13 @@ export default class HomeComponent extends Component {
     } else {
       return (
         <div>
+          {this.state.selectedDepartment && (
+            <DeleteComponent
+              numero={this.state.selectedDepartment.numero}
+              deleteDepart={this.deleteDepart}
+              unloadModal={this.unloadModal}
+            />
+          )}
           <table className="table table-info">
             <thead>
               <tr>
@@ -50,7 +62,7 @@ export default class HomeComponent extends Component {
                     <td>{dep.nombre}</td>
                     <td>{dep.localidad}</td>
                     <td>
-                        {/* Mostrar confirmacion de borrado
+                      {/* Mostrar confirmacion de borrado
                         1. Cargar componente encima del otro 
                         2. Recuperar ID por props
                         3. Recuperar metodo de borrado del padre y llamarlo por el hijo
@@ -60,7 +72,7 @@ export default class HomeComponent extends Component {
                         className="btn btn-danger"
                         //SIEMPRE HAY QUE LLAMAR CON LAMBDA LOS METODOS DE ACCION
                         onClick={() => {
-                          this.deleteDepart(dep.numero);
+                          this.setState({ selectedDepartment: dep });
                         }}
                       >
                         Eliminar
