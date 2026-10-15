@@ -6,6 +6,7 @@ export default class HomeComponent extends Component {
   state = {
     dep: [],
     loaded: false,
+    modal: false,
   };
   service = new ServiceDepartamentos();
   loadDepartmentDetails = () => {
@@ -30,54 +31,62 @@ export default class HomeComponent extends Component {
       return <img src={loading} alt="imagen carga"></img>;
     } else {
       return (
-        <table className="table table-info">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Localidad</th>
-              <th>Accion</th>
-              <th>Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.dep.map((dep, index) => {
-              return (
-                <tr key={index}>
-                  <td>{dep.numero}</td>
-                  <td>{dep.nombre}</td>
-                  <td>{dep.localidad}</td>
-                  <td>
-                    <button
-                      className="btn btn-danger"
-                      //SIEMPRE HAY QUE LLAMAR CON LAMBDA LOS METODOS DE ACCION
-                      onClick={() => {
-                        this.deleteDepart(dep.numero);
-                      }}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
-                  <td>
-                    <NavLink
-                      className="btn btn-info"
-                      to={
-                        "/update/" +
-                        dep.numero +
-                        "/" +
-                        encodeURIComponent(dep.nombre) +
-                        "/" +
-                        encodeURIComponent(dep.localidad)
-                      }
-                    >
-                      Editar
-                    </NavLink>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div>
+          <table className="table table-info">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Localidad</th>
+                <th>Accion</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.dep.map((dep, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{dep.numero}</td>
+                    <td>{dep.nombre}</td>
+                    <td>{dep.localidad}</td>
+                    <td>
+                        {/* Mostrar confirmacion de borrado
+                        1. Cargar componente encima del otro 
+                        2. Recuperar ID por props
+                        3. Recuperar metodo de borrado del padre y llamarlo por el hijo
+                        4. Si le doy a si eliminar y recargar
+                        5. Si le doy a no dejar de mostrar el component y ya */}
+                      <button
+                        className="btn btn-danger"
+                        //SIEMPRE HAY QUE LLAMAR CON LAMBDA LOS METODOS DE ACCION
+                        onClick={() => {
+                          this.deleteDepart(dep.numero);
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                    <td>
+                      <NavLink
+                        className="btn btn-info"
+                        to={
+                          "/update/" +
+                          dep.numero +
+                          "/" +
+                          encodeURIComponent(dep.nombre) +
+                          "/" +
+                          encodeURIComponent(dep.localidad)
+                        }
+                      >
+                        Editar
+                      </NavLink>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       );
     }
   }
