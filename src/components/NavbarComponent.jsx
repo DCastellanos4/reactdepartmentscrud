@@ -39,9 +39,9 @@ export default class NavbarComponent extends Component {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Link
-                  </a>
+                  <NavLink className="nav-link" to="/create">
+                    Dar de alta
+                  </NavLink>
                 </li>
                 <li className="nav-item dropdown">
                   <a
