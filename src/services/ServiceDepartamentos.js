@@ -48,4 +48,11 @@ export default class ServiceDepartamentos {
         });
     });
   }
+  async getDatos() {
+    let url = Global.urlApiDepartamentos;
+    //DEBEMOS CAPTURAR LOS DATOS DEL API
+    let response = await axios.get(url);
+    //TENEMOS LOS DATOS EN RESPONSE Y HA REALIZADO LA ACCION
+    return response.data;
+  }
 }

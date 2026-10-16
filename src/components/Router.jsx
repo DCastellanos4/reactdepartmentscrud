@@ -4,6 +4,7 @@ import HomeComponent from "./HomeComponent";
 import NavbarComponent from "./NavbarComponent";
 import CreateDepartamento from "./CreateDepartamento";
 import UpdateComponent from "./UpdateComponent";
+import MultipleHospitals from "./MultipleHospitals";
 export default class Router extends Component {
   render() {
     function UpdateDepartmentElement() {
@@ -26,6 +27,7 @@ export default class Router extends Component {
             path="/update/:numero/:nombre/:localidad"
             element={<UpdateDepartmentElement />}
           ></Route>
+          <Route path="/hospital" element={<MultipleHospitals />}></Route>
         </Routes>
       </BrowserRouter>
     );

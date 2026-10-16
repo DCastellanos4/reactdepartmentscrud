@@ -69,9 +69,9 @@ export default class NavbarComponent extends Component {
                   </ul>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link disabled" aria-disabled="true">
-                    Disabled
-                  </a>
+                  <NavLink className="nav-link" to="/hospital">
+                    Hospitales
+                  </NavLink>
                 </li>
               </ul>
             </div>
